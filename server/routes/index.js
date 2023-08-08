@@ -3,11 +3,12 @@ const router = express.Router();
 const serviceRequest = require('./../services/index');
 const { query, validationResult } = require('express-validator');
 
-
+// server check
 router.get('/ping', function (req, res, next) {
   res.status(200).json('Pong');
 });
 
+// IP address request route
 router.get('/api/ip-address', query('ip').isIP().notEmpty().escape(), async (req, res) => {
   let returnJson = {
     msg: "",
@@ -25,7 +26,7 @@ router.get('/api/ip-address', query('ip').isIP().notEmpty().escape(), async (req
 
   try {
     let response = await serviceRequest.ipAddressRequest(ipAddress.ip);
-    console.log("=> ", response);
+    // console.log(`response => ${response}`);
 
     if (response != undefined) {
       returnJson.msg = response.statusText || "";

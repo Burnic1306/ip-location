@@ -1,6 +1,7 @@
 const axios = require('axios');
 const IP_API_URL = "http://ip-api.com/json/";
 
+// IP address request service
 const ipAddressRequest = async (ipAddress) => {
     let resData = {
         status: "",
@@ -9,13 +10,13 @@ const ipAddressRequest = async (ipAddress) => {
     };
 
     try {
-        console.log(ipAddress);
+        // console.log(`ipAddress => ${ipAddress}`);
         const params = { fields: 'status,city,country' };
         const response = await axios.get(IP_API_URL + ipAddress, {
             params
         }
         );
-        console.log(response);
+        // console.log(`response => ${response}`);
 
         if (response.status === 200) {
             if (response?.data == undefined) {
@@ -31,9 +32,6 @@ const ipAddressRequest = async (ipAddress) => {
                 statusText: response?.statusText,
                 data: locationData
             };
-
-            if (resData.data != undefined)
-                console.log("asd", resData.data);
 
             return resData;
         } else {
